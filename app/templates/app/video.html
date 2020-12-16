@@ -1,0 +1,18 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+
+
+<div class="jumbotron">
+    <p>
+        <h1>Ночь батутов 31.10.2020</h1>
+        <h3>Видеоотчет с нашего мероприятия.</h3>
+        <video src="/media/video1.mp4" {# Путь к Видео 1 #}
+                controls="controls"
+                width="100%"
+                poster="/media/fon.png"> {# Фон для Видео 1 #}
+        </video>
+    </p>
+</div>
+
+{% endblock %}
