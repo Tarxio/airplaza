@@ -1,0 +1,15 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+
+<div class="jumbotron">
+    <h2>{{ title }}:</h2>
+    <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+        <div>
+            {{ registerform.as_p }}
+            <button type="submit" class="btn btn-primary btn-large">Запись</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

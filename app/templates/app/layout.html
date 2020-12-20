@@ -23,9 +23,14 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'register' %}">Запись</a></li> {#Переход на Запись#}
+                        <li><a href="{% url 'myregister' %}">Мои записи</a></li> {#Переход на Мои записи#}
+                    {% endif %}
                     <li><a href="{% url 'blog' %}">Блог</a></li> {#Переход на Блог#}
-                    {% if user.is_superuser %} {# Если пользователь администратор #}
+                    {% if user.is_superuser or user.is_staff %} {# Если пользователь администратор #}
                         <li><a href="{% url 'newpost' %}">Новая статья</a></li> {#Переход на Новая статья#}
+                        <li><a href="{% url 'allregister' %}">Управление записями</a></li> {#Переход на Мои записи#}
                     {% endif %}
                     <li><a href="{% url 'video' %}">Видео</a></li> {#Переход на Видео#}
                     <li><a href="{% url 'links' %}">Полезные ресурсы</a></li> {#Переход на Полезные ресурсы#}

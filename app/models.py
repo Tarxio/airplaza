@@ -40,7 +40,30 @@ class Comment(models.Model):
         ordering = ["-date"]
         verbose_name = "Комментарий"
         verbose_name_plural = "Комментарий к статьям блога"
+        
+#Модель Запись
+class Register(models.Model):
+    rauthor = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name = "Имя пользователя")
+    rname = models.CharField(max_length = 100, verbose_name = "Имя")
+    rnumber = models.CharField(max_length = 100, verbose_name = "Номер телефона")
+    remail = models.EmailField(verbose_name = "E-mail")
+    rdate = models.DateField(verbose_name = "Дата")
+    rtime = models.TimeField(verbose_name = "Время")
+    rcount = models.CharField(max_length = 100, verbose_name = "Количество человек")
+    ready = models.CharField(default='0', max_length = 1, verbose_name = "Статус")
+
+    def _str_(self):
+        return self.rauthor
+
+    class Meta:
+        db_table = "Register"
+        ordering = ["rdate"]
+        verbose_name = "Запись"
+        verbose_name_plural = "Запись"
+
+
 
 #Отображение моделей в административном разделе
 admin.site.register(Blog)
 admin.site.register(Comment)
+admin.site.register(Register)

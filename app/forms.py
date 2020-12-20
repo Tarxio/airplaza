@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from .models import Comment
 from .models import Blog
+from .models import Register
 
 class BootstrapAuthenticationForm(AuthenticationForm):
     """Форма стандартной авторизации"""
@@ -29,6 +30,8 @@ class PoolForm(forms.Form):
                                       ('3','Плохо')],initial=1)
     message = forms.CharField(label='Отзыв', widget=forms.Textarea(attrs={'rows':10,'cols':100}))
     agree = forms.BooleanField(label='Я согласен на отправление моего отзыва', required=True)
+    test = forms.DateField(label='Дата посещения')
+    test1 = forms.TimeField(label='Время посещения')
 
 
 class CommentForm (forms.ModelForm):
@@ -45,3 +48,13 @@ class BlogForm (forms.ModelForm):
         model = Blog
         fields = ('title','description','content','image')
         labels = {'title': "Заголовок",'description': "Краткое содержание",'content': "Полное содержание",'image': "Изображение"}
+
+class RegisterForm (forms.ModelForm):
+    """Форма Запись"""
+    class Meta:
+        model = Register
+        fields = ('rname','rnumber','remail','rdate','rtime','rcount')
+        labels = {'rname': "Ваше имя",'rnumber': "Номер телефона",'remail': "E-mail",'rtime': "Время",'rcount': "Количество людей"}
+        widgets = {
+            'rdate': forms.SelectDateWidget(years=range(2020, 2025))
+        }

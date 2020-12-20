@@ -1,0 +1,19 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+{% load static %}
+
+<div class="jumbotron">
+    <h3>Ваши записи:</h3>
+    {% for post in posts %}
+            <hr />
+            <h4>Имя: {{ post.rname }}</h4>
+            <h4>Номер телефона: {{ post.rnumber }} E-mail: {{ post.remail }}</h4>
+            <h4>Дата: {{ post.rdate }} Время: {{ post.rtime }}</h4>
+            <h4>Количество человек: {{ post.rcount }}</h4>
+            <a href="{% url 'status1' sid=post.id %}" class="btn btn-primary btn-large">Подтвердить</a>
+            <a href="{% url 'status2' sid=post.id %}" class="btn btn-primary btn-large">Отказать</a>
+            <a href="{% url 'delregister' did=post.id %}" class="btn btn-primary btn-large">Удалить запись</a>
+    {% endfor %}
+</div>
+{% endblock %}

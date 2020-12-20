@@ -24,7 +24,13 @@ urlpatterns = [
     path('video/', views.video, name='video'), #ссылка на обработку Видео
     path('blog/', views.blog, name='blog'), #ссылка на обработку Блог
     path('newpost/', views.newpost, name='newpost'), #ссылка на обработку Новая статья
+    path('register/', views.register, name='register'), #ссылка на обработку Запись
+    path('myregister/', views.myregister, name='myregister'), #ссылка на обработку Мои записи
+    path('allregister/', views.allregister, name='allregister'), #ссылка на обработку Управление записями
     path('(?P<parametr>\d+)/', views.blogpost, name='blogpost'), #ссылка на обработку Статья блога
+    path('delregister/(?P<did>\d+)/', views.delregister, name='delregister'), #ссылка на обработку Удалить запись
+    path('status1/(?P<sid>\d+)/', views.status1, name='status1'), #ссылка на обработку Статуса
+    path('status2/(?P<sid>\d+)/', views.status2, name='status2'), #ссылка на обработку Статуса
     path('registration/', views.registration, name='registration'), #ссылка на обработку Регистрация
     path('login/', #обработка стандартной авторизации
          LoginView.as_view

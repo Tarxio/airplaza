@@ -6,8 +6,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.db import models
 from .models import Blog
 from .models import Comment
+from .models import Register
 from .forms import CommentForm
 from .forms import BlogForm
+from .forms import RegisterForm
 
 def home(request):
     """Обработка закроса на Главная страница"""
@@ -196,3 +198,84 @@ def video(request):
             'year':datetime.now().year,
         }
     )
+
+def register(request):
+    """Обработка закроса на Запись"""
+    assert isinstance(request, HttpRequest)
+    if request.method == "POST":
+        registerform = RegisterForm(request.POST, request.FILES)
+        if registerform.is_valid():
+            register_f = registerform.save(commit=False)
+            register_f.rauthor = request.user
+            register_f.save()
+
+            return redirect('myregister')
+    else:
+        registerform = RegisterForm()
+    
+    return render(
+        request,
+        'app/register.html',
+        {
+            'registerform': registerform,
+            'title': 'Запись',
+            'year': datetime.now().year,
+        }
+    )
+
+def myregister(request):
+    """Обработка закроса на Мои записи"""
+    posts = Register.objects.all()
+    assert isinstance(request, HttpRequest)
+
+    return render(
+        request,
+        'app/myregister.html',
+        {
+            'posts': posts,
+            'year': datetime.now().year,
+        }
+    )
+
+def allregister(request):
+    """Обработка закроса на Мои записи"""
+    posts = Register.objects.all()
+    assert isinstance(request, HttpRequest)
+
+    return render(
+        request,
+        'app/allregister.html',
+        {
+            'posts': posts,
+            'year': datetime.now().year,
+        }
+    )
+
+def delregister(request, did):
+    """Обработка запроса на Удаление записи"""
+    assert isinstance(request, HttpRequest)
+
+    posts = Register.objects.get(id=did)
+    posts.delete()
+
+    return redirect('myregister')
+
+def status1(request, sid):
+    """Обработка запроса на Удаление записи"""
+    assert isinstance(request, HttpRequest)
+
+    posts = Register.objects.get(id=sid)
+    posts.ready = '1'
+    posts.save()
+
+    return redirect('allregister')
+
+def status2(request, sid):
+    """Обработка запроса на Удаление записи"""
+    assert isinstance(request, HttpRequest)
+
+    posts = Register.objects.get(id=sid)
+    posts.ready = '2'
+    posts.save()
+
+    return redirect('allregister')
